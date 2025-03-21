@@ -34,6 +34,6 @@ const schema = a
       timestamp: a.datetime(),
     }),
   })
-  .authorization((auth) => auth.publicApiKey({}));
+  .authorization((auth) => auth.publicApiKey()); // No arguments here
 
 export const data = defineData({ schema });
