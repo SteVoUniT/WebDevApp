@@ -34,6 +34,6 @@ const schema = a
       timestamp: a.datetime(),
     }),
   })
-  .authorization([a.allow.public()]); // Global authorization rule
+  .authorization((auth) => auth.publicApiKey({}));
 
 export const data = defineData({ schema });
