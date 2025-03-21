@@ -1,0 +1,10 @@
+{
+  "resourceName": "dynamodb",
+  "tableName": "MessagingApp",
+  "partitionKey": {
+    "fieldName": "Messages",
+    "fieldType": "string"
+  },
+  "gsi": [],
+  "triggerFunctions": []
+}

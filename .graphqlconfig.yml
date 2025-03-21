@@ -1,0 +1,18 @@
+projects:
+  webdevapp:
+    schemaPath: amplify/backend/api/webdevapp/build/schema.graphql
+    includes:
+      - '*.ts'
+    excludes:
+      - ./amplify/**
+      - src/API.ts
+    extensions:
+      amplify:
+        codeGenTarget: typescript
+        generatedFileName: src/API.ts
+        docsFilePath: .
+        region: us-east-1
+        apiId: null
+extensions:
+  amplify:
+    version: 3

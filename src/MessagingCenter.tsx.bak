@@ -1,0 +1,135 @@
+import React from "react";
+import {
+  AppBar,
+  Toolbar,
+  Typography,
+  IconButton,
+  Box,
+  TextField,
+  InputAdornment,
+  List,
+  ListItem,
+  ListItemAvatar,
+  Avatar,
+  ListItemText,
+  Paper,
+} from "@mui/material";
+
+import MenuIcon from "@mui/icons-material/Menu";
+import NotificationsIcon from "@mui/icons-material/Notifications";
+import SearchIcon from "@mui/icons-material/Search";
+import PersonIcon from "@mui/icons-material/Person";
+
+// Example data for demonstration
+const mockMessages = [
+  { id: 1, name: "Nikolai", lastMessageTime: "3:07pm" },
+  { id: 2, name: "Elizabeth", lastMessageTime: "3:07pm" },
+  { id: 3, name: "Shannon", lastMessageTime: "3:07pm" },
+  { id: 4, name: "Steven", lastMessageTime: "3:07pm" },
+  { id: 5, name: "Christian", lastMessageTime: "3:07pm" },
+  { id: 6, name: "Tom", lastMessageTime: "3:07pm" },
+];
+
+const MessagingCenter: React.FC = () => {
+  return (
+    <Box
+      sx={{
+        maxWidth: 480, // mobile-like layout
+        mx: "auto", // Center horizontally
+        bgcolor: "#000", // Black background
+        minHeight: "100vh", // Full vertical space
+        color: "#fff",
+      }}
+    >
+      {/* nav bar */}
+      <AppBar position="static" sx={{ bgcolor: "#000" }}>
+        <Toolbar>
+          <IconButton edge="start" color="inherit">
+            <MenuIcon />
+          </IconButton>
+
+          {/* Civicom Logo goes here */}
+          <Typography variant="h6" sx={{ mx: 2 }}>
+            Civicom
+          </Typography>
+
+          <Typography variant="h6" sx={{ flexGrow: 1 }}>
+            Messaging Center
+          </Typography>
+
+          <IconButton edge="end" color="inherit">
+            <NotificationsIcon />
+          </IconButton>
+        </Toolbar>
+      </AppBar>
+
+      {/* SEARCH BAR */}
+      <Box sx={{ textAlign: "center", p: 2 }}>
+        <TextField
+          variant="outlined"
+          placeholder="Search Bar"
+          sx={{
+            width: "80%",
+            maxWidth: 300,
+            bgcolor: "#fff",
+            borderRadius: "25px",
+          }}
+          InputProps={{
+            startAdornment: (
+              <InputAdornment position="start">
+                <SearchIcon />
+              </InputAdornment>
+            ),
+          }}
+        />
+      </Box>
+
+      {/* BLUE BACKGROUND BUBBLE and MESSAGE LIST */}
+      <Box
+        sx={{
+          bgcolor: "#1496f3",
+          borderTopLeftRadius: 40,
+          borderTopRightRadius: 40,
+          p: 2,
+          pt: 4, // extra top padding for the curved edge
+          minHeight: "calc(100vh - 120px)", // fill remaining vertical space
+        }}
+      >
+        <List sx={{ mb: 2 }}>
+          {mockMessages.map((msg) => (
+            <Paper
+              key={msg.id}
+              sx={{
+                mb: 1,
+                backgroundColor: "#d8e6ff",
+                borderRadius: 1,
+              }}
+            >
+              <ListItem>
+                <ListItemAvatar>
+                  <Avatar sx={{ bgcolor: "#a2cfff" }}>
+                    <PersonIcon sx={{ color: "#fff" }} />
+                  </Avatar>
+                </ListItemAvatar>
+                <ListItemText
+                  primary={
+                    <Typography
+                      component="span"
+                      variant="subtitle1"
+                      sx={{ fontWeight: "bold" }}
+                    >
+                      {msg.name}
+                    </Typography>
+                  }
+                  secondary={`Last Message: ${msg.lastMessageTime}`}
+                />
+              </ListItem>
+            </Paper>
+          ))}
+        </List>
+      </Box>
+    </Box>
+  );
+};
+
+export default MessagingCenter;

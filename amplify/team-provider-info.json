@@ -1,0 +1,26 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-webdevapp-dev-a29b8-authRole",
+      "UnauthRoleArn": "arn:aws:iam::586794458838:role/amplify-webdevapp-dev-a29b8-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::586794458838:role/amplify-webdevapp-dev-a29b8-authRole",
+      "Region": "us-east-1",
+      "DeploymentBucketName": "amplify-webdevapp-dev-a29b8-deployment",
+      "UnauthRoleName": "amplify-webdevapp-dev-a29b8-unauthRole",
+      "StackName": "amplify-webdevapp-dev-a29b8",
+      "StackId": "arn:aws:cloudformation:us-east-1:586794458838:stack/amplify-webdevapp-dev-a29b8/f5fa7610-fc9a-11ef-8d39-0e6a9d97788b",
+      "AmplifyAppId": "d3i3qcjfyjmdbr"
+    },
+    "categories": {
+      "auth": {
+        "webdevapp2e962ecf": {}
+      },
+      "api": {
+        "webdevapp": {}
+      },
+      "storage": {
+        "dynamodb": {}
+      }
+    }
+  }
+}

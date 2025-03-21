@@ -1,0 +1,104 @@
+/* Container for the overall page */
+.messaging-center-container {
+  width: 100%;
+  max-width: 480px; /* optionally constrain width for mobile design */
+  margin: 0 auto;
+  background-color: #000; /* black background to match the mockup’s header area */
+  color: #fff;
+  font-family: Arial, sans-serif;
+  min-height: 100vh;
+}
+
+/* Top navbar area */
+.header-nav {
+  display: flex;
+  align-items: center;
+  background-color: #000;
+  padding: 0.5rem;
+  position: relative;
+}
+
+.hamburger-menu {
+  font-size: 1.5rem;
+  cursor: pointer;
+  margin-right: 0.5rem;
+}
+
+.logo {
+  height: 32px;
+  margin: 0 0.5rem;
+}
+
+.title {
+  font-size: 1.1rem;
+  margin: 0 0.5rem;
+  flex: 1; /* push the bell icon to the right */
+  text-align: center;
+}
+
+.bell-icon {
+  font-size: 1.5rem;
+  margin-left: auto;
+  cursor: pointer;
+}
+
+/* Search bar area */
+.search-bar-container {
+  background-color: #000;
+  text-align: center;
+  padding: 1rem;
+}
+
+.search-bar {
+  width: 80%;
+  max-width: 300px;
+  padding: 0.5rem;
+  border-radius: 20px;
+  border: none;
+  outline: none;
+  font-size: 1rem;
+}
+
+/* The big blue rounded area behind the messages */
+.messages-list {
+  background-color: #1496f3; /* or your chosen shade of blue */
+  border-top-left-radius: 40px;
+  border-top-right-radius: 40px;
+  padding: 1rem;
+  padding-top: 2rem; /* so the messages aren’t hidden under the curve */
+}
+
+/* Each message row */
+.message-item {
+  display: flex;
+  align-items: center;
+  background-color: #d8e6ff; /* light shade for the message boxes */
+  margin: 0.5rem 0;
+  padding: 1rem;
+  border-radius: 8px;
+  color: #000; /* black text inside the message item */
+}
+
+/* Placeholder avatar */
+.avatar {
+  width: 40px;
+  height: 40px;
+  background-color: #a2cfff; /* or any placeholder color */
+  border-radius: 50%;
+  margin-right: 1rem;
+}
+
+.message-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.message-info strong {
+  font-size: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.message-info span {
+  font-size: 0.9rem;
+  color: #333;
+}
