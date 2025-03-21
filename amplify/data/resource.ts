@@ -4,17 +4,17 @@ import { a } from "@aws-amplify/data-schema";
 const schema = a
   .schema({
     User: a.model({
-      id: a.id(),
+      userId: a.id(),
       name: a.string().required(),
       role: a.string().required(),
       groupId: a.string(),
-      group: a.belongsTo("Group"),
+      group: a.belongsTo("Group", "groupId"),
     }),
 
     Group: a.model({
-      id: a.id(),
+      groupId: a.id(),
       roleName: a.string().required(),
-      users: a.hasMany("User"),
+      users: a.hasMany("User", "groupId"),
     }),
 
     Conversation: a.model({
