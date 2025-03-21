@@ -1,4 +1,4 @@
-import { a } from "@aws-amplify/schema-gen";
+import { a } from "@aws-amplify/data-construct";
 
 export const schema = a
   .schema({
@@ -17,7 +17,7 @@ export const schema = a
     Conversation: a.model({
       participants: a.array(a.id()).required(), // List of User IDs
       messages: a.hasMany("Message", "conversationId"),
-      lastMessage: a.string(), // Optional: Store last message preview
+      lastMessage: a.string(),
       lastUpdated: a.timestamp(),
     }),
 
@@ -29,4 +29,4 @@ export const schema = a
       timestamp: a.timestamp().required(),
     }),
   })
-  .authorization((allow) => allow.publicApiKey());
+  .authorization((allow: { publicApiKey: () => void }) => allow.publicApiKey());
