@@ -1,39 +1,40 @@
+// amplify/data/resource.ts
 import { defineData } from "@aws-amplify/backend-data";
-import { a, type ClientSchema } from "@aws-amplify/data-schema";
+import { a } from "@aws-amplify/data-schema";
 
 const schema = a
   .schema({
     User: a.model({
-      id: a.id(), // Always include an ID field
+      id: a.id(),
       name: a.string().required(),
-      role: a.string().required(), // "Physical Therapist" or "Virtual Health Assistant"
-      groupId: a.string(), // Changed to string, consistent with belongsTo
-      group: a.belongsTo("Group", { fields: ["groupId"] }), // Corrected belongsTo
+      role: a.string().required(),
+      groupId: a.string(), // Foreign key to Group
+      group: a.belongsTo("Group"), // Corrected belongsTo - no fields option needed
     }),
 
     Group: a.model({
-      id: a.id(), // Always include an ID field
-      roleName: a.string().required(), // "Physical Therapist" or "Virtual Health Assistant"
-      users: a.hasMany("User"), // Simplified hasMany - the related field is inferred
+      id: a.id(),
+      roleName: a.string().required(),
+      users: a.hasMany("User"), // Corrected hasMany - no related field needed
     }),
 
     Conversation: a.model({
-      id: a.id(), // Always include an ID
-      participants: a.string().array().required(), // Correct array of strings for IDs
-      messages: a.hasMany("Message"), // Simplified hasMany
+      id: a.id(),
+      participants: a.string().array().required(),
+      messages: a.hasMany("Message"), // Corrected hasMany
       lastMessage: a.string(),
-      lastUpdated: a.datetime(), // Use datetime for timestamps
+      lastUpdated: a.datetime(),
     }),
 
     Message: a.model({
-      id: a.id(), // Always include an ID
-      conversationId: a.string(), // Changed to string, consistent with belongsTo
-      conversation: a.belongsTo("Conversation", { fields: ["conversationId"] }), // Corrected belongsTo
-      senderId: a.string().required(), // Changed to string for User ID
+      id: a.id(),
+      conversationId: a.string(), // Foreign key to Conversation
+      conversation: a.belongsTo("Conversation"), // Corrected belongsTo
+      senderId: a.string().required(),
       text: a.string().required(),
-      timestamp: a.datetime().required(), // Use datetime for timestamps
+      timestamp: a.datetime().required(),
     }),
   })
-  .authorization([a.allow.public()]); // Corrected authorization - using public for simplicity, change as needed
+  .authorization([a.allow.public()]); // Corrected authorization
 
 export const data = defineData({ schema });
