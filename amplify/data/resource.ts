@@ -1,4 +1,4 @@
-import { defineData } from "@aws-amplify/backend-data";
+import { defineData as amplifyDefineData } from "@aws-amplify/backend-data";
 import { a } from "@aws-amplify/data-schema";
 
 const schema = a
@@ -36,4 +36,4 @@ const schema = a
   })
   .authorization((auth) => auth.publicApiKey());
 
-export const defineData = () => defineData({ schema });
+export const defineData = () => amplifyDefineData({ schema });
