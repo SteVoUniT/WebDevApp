@@ -20,15 +20,14 @@ const schema = a
     Conversation: a.model({
       conversationId: a.id(),
       participants: a.string().array(),
-      // Correct the relationship to messages:
-      messages: a.hasMany("Message", "conversationId"), // Use "conversationId" as the reference
+      messages: a.hasMany("Message", "conversationId"),
       lastMessage: a.string(),
       lastUpdated: a.datetime(),
     }),
 
     Message: a.model({
       messageId: a.id(),
-      conversationId: a.id(), // Ensure "conversationId" is present in the Message model
+      conversationId: a.id(),
       conversation: a.belongsTo("Conversation", "conversationId"),
       senderId: a.string(),
       text: a.string(),
@@ -37,4 +36,4 @@ const schema = a
   })
   .authorization((auth) => auth.publicApiKey());
 
-export const data = defineData({ schema });
+export const defineData = () => defineData({ schema });
