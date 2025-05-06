@@ -20,10 +20,10 @@ const schema = a
         roleName: a.string(),
         users: a.hasMany("User", "groupId"),
       })
-      .authorization((allow) => [
-        allow.owner(), // Only authenticated users can access groups
+      .authorization(allow => [allow.owner(), allow.authenticated().to(['read', 'update'])]), // Example adjusted auth
+        // Only authenticated users can access groups
         // You might want to add more specific rules based on roles or group membership
-      ]),
+      
 
     Conversation: a
       .model({
@@ -33,7 +33,13 @@ const schema = a
         lastMessage: a.string(),
         lastUpdated: a.datetime(),
       })
-      .authorization(allow => [allow.owner()])
+      .authorization(allow => [
+        allow.owner().to(['create','delete']), // Let creator manage existence
+        // WARNING: This rule allows ANY authenticated user to read/update ANY conversation.
+        // This is necessary for easy fetching by participants initially.
+        // SECURE THIS LATER using dynamic groups based on 'participants' or custom logic.
+        allow.authenticated().to(['read', 'update'])
+      ])
       ,
 
     Message: a
@@ -45,7 +51,7 @@ const schema = a
         text: a.string(),
         timestamp: a.datetime(),
       })
-      .authorization(allow => [allow.owner()])
+      .authorization(allow => [allow.owner(), allow.authenticated().to(['read'])]),
     // Remove the public API key if you are implementing more specific auth
     // auth.publicApiKey();
   });

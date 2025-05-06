@@ -2,22 +2,43 @@
 
 import React from 'react';
 import MessagingCenter from './MessagingCenter';
+import Chat from './Chat'; // 1. Import the Chat component
 
-// 1. Import Authenticator and its styles
+// 2. Import routing components
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+
 import { Authenticator, useAuthenticator, Button } from '@aws-amplify/ui-react';
-import '@aws-amplify/ui-react/styles.css'; // Default Amplify UI styles
-
-// You can keep MessagingCenter in its own file as you have it.
-// We'll pass down the necessary props like signOut and user from Authenticator.
+import '@aws-amplify/ui-react/styles.css';
 
 function App() {
   return (
-    // 2. Wrap the part of your app that needs authentication
     <Authenticator>
-      {/* 3. Use the render prop pattern to get access to signOut and user */}
       {({ signOut, user }) => (
-        // Pass signOut and user details down to your main app component
-        <MessagingCenter user={user} signOut={signOut} />
+        // 3. Wrap the authenticated part of your app with BrowserRouter
+        <BrowserRouter>
+          {/* 4. Define Routes */}
+          <Routes>
+            {/* Route for the main conversation list */}
+            <Route
+              path="/"
+              element={<MessagingCenter user={user} signOut={signOut} />}
+            />
+
+            {/* Route for the individual chat view */}
+            {/* It includes ':conversationId' as a URL parameter */}
+            <Route
+              path="/chat/:conversationId"
+              element={<Chat user={user} />} // Pass user prop to Chat component
+            />
+
+            {/* Optional: Add other routes here if needed */}
+            {/* <Route path="/contacts" element={<Contacts user={user} />} /> */}
+
+            {/* Optional: Add a catch-all route or redirect for invalid paths */}
+            {/* <Route path="*" element={<Navigate to="/" replace />} /> */}
+
+          </Routes>
+        </BrowserRouter>
       )}
     </Authenticator>
   );
