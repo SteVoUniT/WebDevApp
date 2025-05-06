@@ -1,3 +1,5 @@
+// src/MessagingCenter.tsx
+
 import React, { useState } from "react";
 import {
   AppBar,
@@ -13,8 +15,8 @@ import {
   Avatar,
   ListItemText,
   Paper,
-  Button,
-} from "@mui/material";
+  Button as MuiButton // Renamed to avoid conflict with Amplify Button if needed
+} from "@mui/material"; // Keep your MUI imports
 
 import MenuIcon from "@mui/icons-material/Menu";
 import NotificationsIcon from "@mui/icons-material/Notifications";
@@ -24,8 +26,19 @@ import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 import Chat from "./Chat";
 import Contacts from "./Contacts";
 
-const MessagingCenter: React.FC = () => {
+// 1. Import Amplify types for props
+import type { WithAuthenticatorProps } from '@aws-amplify/ui-react';
+
+// 2. Define an interface for the props including user and signOut
+interface MessagingCenterProps {
+  user?: WithAuthenticatorProps['user'];
+  signOut?: WithAuthenticatorProps['signOut'];
+}
+
+// 3. Update component signature to accept props
+const MessagingCenter: React.FC<MessagingCenterProps> = ({ user, signOut }) => {
   const [messages, setMessages] = useState([
+    // Your existing message state...
     { id: 1, name: "Nikolai", lastMessageTime: "3:07pm" },
     { id: 2, name: "Elizabeth", lastMessageTime: "3:07pm" },
     { id: 3, name: "Shannon", lastMessageTime: "3:07pm" },
@@ -35,6 +48,7 @@ const MessagingCenter: React.FC = () => {
   ]);
 
   const addMessage = () => {
+    // Your existing addMessage logic...
     const newMessage = {
       id: messages.length + 1,
       name: `User ${messages.length + 1}`,
@@ -43,6 +57,7 @@ const MessagingCenter: React.FC = () => {
     setMessages([...messages, newMessage]);
   };
 
+  // 4. Use the user info and signOut function
   return (
     <BrowserRouter>
       <Box
@@ -66,9 +81,17 @@ const MessagingCenter: React.FC = () => {
             <Typography variant="h6" sx={{ flexGrow: 1 }}>
               Messaging Center
             </Typography>
-            <IconButton edge="end" color="inherit">
+            {/* Optional: Display username */}
+            <Typography variant="body2" sx={{ mr: 2 }}>
+              Hi, {user?.username || 'User'} 
+            </Typography>
+            <IconButton edge="end" color="inherit" sx={{ mr: 1 }}>
               <NotificationsIcon />
             </IconButton>
+             {/* Add a Sign Out Button */}
+             <MuiButton color="inherit" variant="outlined" onClick={signOut} size="small">
+                Sign Out
+             </MuiButton>
           </Toolbar>
         </AppBar>
 
@@ -128,7 +151,7 @@ const MessagingCenter: React.FC = () => {
                     borderTopRightRadius: 40,
                     p: 2,
                     pt: 4,
-                    minHeight: "calc(100vh - 120px)",
+                    minHeight: "calc(100vh - 120px)", // Adjust height if needed due to AppBar changes
                   }}
                 >
                   <List sx={{ mb: 2 }}>
@@ -165,13 +188,13 @@ const MessagingCenter: React.FC = () => {
                   </List>
                   {/* Button to add a new message */}
                   <Box sx={{ textAlign: "center", mt: 2 }}>
-                    <Button
+                    <MuiButton
                       variant="contained"
                       color="primary"
                       onClick={addMessage}
                     >
                       Add Message
-                    </Button>
+                    </MuiButton>
                   </Box>
                 </Box>
               </Box>
