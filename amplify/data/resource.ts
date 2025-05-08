@@ -1,5 +1,5 @@
-import { defineData } from "@aws-amplify/backend-data";
-import { a } from "@aws-amplify/data-schema";
+import { a, defineData, type ClientSchema } from '@aws-amplify/backend';
+
 
 const schema = a
   .schema({
@@ -49,13 +49,15 @@ const schema = a
         conversation: a.belongsTo("Conversation", "conversationId"),
         senderId: a.string(),
         text: a.string(),
-        timestamp: a.datetime(),
+        timestamp: a.datetime().required(),
       })
       .authorization(allow => [allow.owner(), allow.authenticated().to(['read'])]),
     // Remove the public API key if you are implementing more specific auth
     // auth.publicApiKey();
   });
 
+export type Schema = ClientSchema<typeof schema>;
+ 
 export const data = defineData({
   schema,
   authorizationModes: {
